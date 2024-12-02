@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2024", "AdventOfCode2024\AdventOfCode2024.csproj", "{E03946F2-5737-4090-9AB5-22038652C873}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAdventOfCode2024", "TestAdventOfCode2024\TestAdventOfCode2024.csproj", "{28516E30-FF5E-45B4-B551-B5C794C1480C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E03946F2-5737-4090-9AB5-22038652C873} = {E03946F2-5737-4090-9AB5-22038652C873}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
