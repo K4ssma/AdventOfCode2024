@@ -51,4 +51,27 @@ public static class TestCases
             yield return "1 2\r\n3";
         }
     }
+
+    public static IEnumerable<TestCaseData> DistanceCases
+    {
+        get
+        {
+            yield return new TestCaseData(new (int NumOne, int NumTwo)[]
+            {
+                new(1, 2),
+            }).Returns(1);
+
+            yield return new TestCaseData(new (int NumOne, int NumTwo)[]
+            {
+                new(1, 3),
+                new(2, 1),
+            }).Returns(1);
+
+            yield return new TestCaseData(new (int NumOne, int NumTwo)[]
+            {
+                new(3, 1),
+                new(1, 2),
+            }).Returns(1);
+        }
+    }
 }
