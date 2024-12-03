@@ -3,6 +3,7 @@
 using AdventOfCode2024.Day01.Task01;
 using AdventOfCode2024.Day01.Task02;
 using AdventOfCode2024.Day02.Task01;
+using AdventOfCode2024.Day02.Task02;
 using Day01InputReader = AdventOfCode2024.Day01.InputReader;
 using Day02InputReader = AdventOfCode2024.Day02.InputReader;
 
@@ -172,6 +173,28 @@ public static class Program
                         .ToArray();
 
                     int safeReportCount = ReportAnalyzer.GetNumOfSafeReports(reports);
+
+                    Console.WriteLine("Anzahl der sicheren Reports:");
+                    Console.WriteLine($"{safeReportCount}\r\n");
+                    return true;
+                }
+
+                case 2:
+                {
+                    string inputFileString = File.ReadAllText(@"..\net9.0\Day02\Input.txt");
+
+                    if (inputFileString.Trim() == string.Empty)
+                    {
+                        Console.WriteLine("Input File is empty");
+                        return false;
+                    }
+
+                    int[][] reports = Day02InputReader
+                        .ReadInputString(inputFileString)
+                        .Select(report => report.ToArray())
+                        .ToArray();
+
+                    int safeReportCount = ProblemDampener.GetNumOfSafeReports(reports);
 
                     Console.WriteLine("Anzahl der sicheren Reports:");
                     Console.WriteLine($"{safeReportCount}\r\n");
