@@ -60,4 +60,8 @@
 		<Using Include="NUnit.Framework" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Day02\Task01\" />
+	</ItemGroup>
+
 </Project>
