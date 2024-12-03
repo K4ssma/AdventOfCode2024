@@ -6,6 +6,13 @@ public static class SimilarityCalculator
 {
     public static int CalculateSimilarityScore((int NumOne, int NumTwo)[] numbers)
     {
-        throw new NotImplementedException();
+        return numbers
+            .Select(numPair =>
+            {
+                int count = numbers.Count(pair => pair.NumTwo == numPair.NumOne);
+
+                return numPair.NumOne * count;
+            })
+            .Aggregate((curr, next) => curr + next);
     }
 }
