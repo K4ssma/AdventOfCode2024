@@ -34,6 +34,8 @@ public static class Program
 
                 default:
                 {
+                    Console.Clear();
+
                     Console.WriteLine("Dieses Türchen existiert (noch) nicht");
                     Console.WriteLine("Bitte versuche ein anderes\r\n");
                     break;
@@ -62,6 +64,8 @@ public static class Program
             {
                 return inputNum;
             }
+
+            Console.Clear();
 
             Console.WriteLine("Ungültige Eingabe bitte Versuche es nocheinmal\r\n");
         }
@@ -118,6 +122,8 @@ public static class Program
 
                 default:
                 {
+                    Console.Clear();
+
                     Console.WriteLine("Diese Aufgabe existiert (noch) nicht");
                     Console.WriteLine("Bitte versuche eine andere\r\n");
                     break;
