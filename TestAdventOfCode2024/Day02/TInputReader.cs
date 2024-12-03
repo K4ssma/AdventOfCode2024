@@ -1,7 +1,7 @@
 ﻿namespace TestAdventOfCode2024.Day02;
 
 using System.Linq;
-using AdventOfCode2024.Day02.InputReader;
+using AdventOfCode2024.Day02;
 
 [TestFixture]
 public sealed class TInputReader
