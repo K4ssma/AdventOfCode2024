@@ -6,7 +6,7 @@ using AdventOfCode2024.Day02.Task01;
 public sealed class TReportAnalyzer
 {
     [TestCaseSource(typeof(TestCases), nameof(TestCases.ReportCases))]
-    public int GetNumOfSafereports_ShouldReturnCorrectNum(int[][] reports)
+    public int GetNumOfSafeReports_ShouldReturnCorrectNum(int[][] reports, string _)
     {
         // assert
         return ReportAnalyzer.GetNumOfSafeReports(reports);
