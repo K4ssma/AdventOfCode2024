@@ -34,4 +34,10 @@
 		</PackageReference>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="Day01\Task01\Input.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>
