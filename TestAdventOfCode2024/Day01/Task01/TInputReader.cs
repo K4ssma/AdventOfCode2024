@@ -1,7 +1,7 @@
 ﻿namespace TestAdventOfCode2024.Day01.Task01;
 
 using System.Linq;
-using AdventOfCode2024.Day01.Task01.InputReader;
+using AdventOfCode2024.Day01;
 
 [TestFixture]
 public class TInputReader

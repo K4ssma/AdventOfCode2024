@@ -1,9 +1,9 @@
-﻿namespace AdventOfCode2024.Day01.Task01.InputReader;
+﻿namespace AdventOfCode2024.Day01;
 
 using System;
 using System.Collections.Generic;
 
-public class InputReader : IInputReader
+public static class InputReader
 {
     public static IEnumerable<(int NumOne, int NumTwo)> ReadInputString(string input)
     {
