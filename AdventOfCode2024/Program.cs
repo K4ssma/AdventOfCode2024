@@ -81,7 +81,7 @@ public static class Program
             {
                 case 1:
                 {
-                    string inputFileString = File.ReadAllText(@"..\net9.0\Day01\Task01\Input.txt");
+                    string inputFileString = File.ReadAllText(@"..\net9.0\Day01\Input.txt");
 
                     (int, int)[] numbers = InputReader.ReadInputString(inputFileString).ToArray();
                     int distance = DistanceCalculator.CalculateOverallDistance(numbers);
@@ -93,7 +93,7 @@ public static class Program
 
                 case 2:
                 {
-                    string inputFileString = File.ReadAllText(@"..\net9.0\Day01\Task01\Input.txt");
+                    string inputFileString = File.ReadAllText(@"..\net9.0\Day01\Input.txt");
                     (int, int)[] numbers = InputReader.ReadInputString(inputFileString).ToArray();
                     int similarity = SimilarityCalculator.CalculateSimilarityScore(numbers);
 
