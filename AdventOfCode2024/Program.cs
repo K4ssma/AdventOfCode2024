@@ -2,6 +2,7 @@
 
 using AdventOfCode2024.Day01.Task01;
 using AdventOfCode2024.Day01.Task01.InputReader;
+using AdventOfCode2024.Day01.Task02;
 
 public static class Program
 {
@@ -93,6 +94,24 @@ public static class Program
 
                     Console.WriteLine("Die Gesamtdistanz beträgt:");
                     Console.WriteLine($"{distance}\n\r");
+                    return true;
+                }
+
+                case 2:
+                {
+                    string inputFileString = File.ReadAllText(@"..\net9.0\Day01\Input.txt");
+
+                    if (inputFileString.Trim() == string.Empty)
+                    {
+                        Console.WriteLine("Input File is empty");
+                        return false;
+                    }
+
+                    (int, int)[] numbers = InputReader.ReadInputString(inputFileString).ToArray();
+                    int similarity = SimilarityCalculator.CalculateSimilarityScore(numbers);
+
+                    Console.WriteLine("Die Gesamt-Ähnlichkeit beträgt:");
+                    Console.WriteLine($"{similarity}\n\r");
                     return true;
                 }
 
