@@ -6,6 +6,7 @@ using AdventOfCode2024.Day02.Task01;
 using AdventOfCode2024.Day02.Task02;
 using AdventOfCode2024.Day03.Task01;
 using AdventOfCode2024.Day03.Task02;
+using AdventOfCode2024.Day04.Task01;
 using Day01InputReader = AdventOfCode2024.Day01.InputReader;
 using Day02InputReader = AdventOfCode2024.Day02.InputReader;
 
@@ -43,6 +44,12 @@ public static class Program
                 case 3:
                 {
                     doorOpener = OpenDoor03;
+                    break;
+                }
+
+                case 4:
+                {
+                    doorOpener = OpenDoor04;
                     break;
                 }
 
@@ -224,6 +231,41 @@ public static class Program
 
         Console.WriteLine("Ergebniss der Computer-Anweisung");
         Console.WriteLine($"{result}\r\n");
+        return true;
+    }
+
+    public static bool OpenDoor04(int taskNum)
+    {
+        string inputFileString = File.ReadAllText(@"..\net9.0\Day04\Input.txt");
+
+        if (inputFileString.Trim() == string.Empty)
+        {
+            Console.WriteLine("Input File is empty");
+            return false;
+        }
+
+        int count;
+
+        switch (taskNum)
+        {
+            case 1:
+            {
+                count = WordSearcher.GetXmasCount(inputFileString);
+                break;
+            }
+
+            default:
+            {
+                Console.Clear();
+
+                Console.WriteLine("Diese Aufgabe existiert (noch) nicht");
+                Console.WriteLine("Bitte versuche eine andere\r\n");
+                return true;
+            }
+        }
+
+        Console.WriteLine("Anzahl:");
+        Console.WriteLine($"{count}\r\n");
         return true;
     }
 }
