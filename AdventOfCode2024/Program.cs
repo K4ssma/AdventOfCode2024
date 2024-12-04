@@ -98,10 +98,6 @@ public static class Program
 
     public static bool OpenDoor01(int taskNum)
     {
-        switch (taskNum)
-        {
-            case 1:
-            {
                 string inputFileString = File.ReadAllText(@"..\net9.0\Day01\Input.txt");
 
                 if (inputFileString.Trim() == string.Empty)
@@ -111,6 +107,11 @@ public static class Program
                 }
 
                 (int, int)[] numbers = Day01InputReader.ReadInputString(inputFileString).ToArray();
+
+        switch (taskNum)
+        {
+            case 1:
+            {
                 int distance = DistanceCalculator.CalculateOverallDistance(numbers);
 
                 Console.WriteLine("Die Gesamtdistanz beträgt:");
@@ -120,15 +121,6 @@ public static class Program
 
             case 2:
             {
-                string inputFileString = File.ReadAllText(@"..\net9.0\Day01\Input.txt");
-
-                if (inputFileString.Trim() == string.Empty)
-                {
-                    Console.WriteLine("Input File is empty");
-                    return false;
-                }
-
-                (int, int)[] numbers = Day01InputReader.ReadInputString(inputFileString).ToArray();
                 int similarity = SimilarityCalculator.CalculateSimilarityScore(numbers);
 
                 Console.WriteLine("Die Gesamt-Ähnlichkeit beträgt:");
@@ -149,51 +141,34 @@ public static class Program
 
     public static bool OpenDoor02(int taskNum)
     {
+                string inputFileString = File.ReadAllText(@"..\net9.0\Day02\Input.txt");
+
+                if (inputFileString.Trim() == string.Empty)
+                {
+                    Console.WriteLine("Input File is empty");
+                    return false;
+                }
+
+                int[][] reports = Day02InputReader
+                    .ReadInputString(inputFileString)
+                    .Select(report => report.ToArray())
+                    .ToArray();
+
+        int safeReportCount;
+
         switch (taskNum)
         {
             case 1:
             {
-                string inputFileString = File.ReadAllText(@"..\net9.0\Day02\Input.txt");
-
-                if (inputFileString.Trim() == string.Empty)
-                {
-                    Console.WriteLine("Input File is empty");
-                    return false;
-                }
-
-                int[][] reports = Day02InputReader
-                    .ReadInputString(inputFileString)
-                    .Select(report => report.ToArray())
-                    .ToArray();
-
-                int safeReportCount = ReportAnalyzer.GetNumOfSafeReports(reports);
-
-                Console.WriteLine("Anzahl der sicheren Reports:");
-                Console.WriteLine($"{safeReportCount}\r\n");
-                return true;
+                safeReportCount = ReportAnalyzer.GetNumOfSafeReports(reports);
+                break;
             }
 
             case 2:
             {
-                string inputFileString = File.ReadAllText(@"..\net9.0\Day02\Input.txt");
-
-                if (inputFileString.Trim() == string.Empty)
-                {
-                    Console.WriteLine("Input File is empty");
-                    return false;
+                safeReportCount = ProblemDampener.GetNumOfSafeReports(reports);
+                break;
                 }
-
-                int[][] reports = Day02InputReader
-                    .ReadInputString(inputFileString)
-                    .Select(report => report.ToArray())
-                    .ToArray();
-
-                int safeReportCount = ProblemDampener.GetNumOfSafeReports(reports);
-
-                Console.WriteLine("Anzahl der sicheren Reports:");
-                Console.WriteLine($"{safeReportCount}\r\n");
-                return true;
-            }
 
             default:
             {
@@ -204,6 +179,10 @@ public static class Program
                 return true;
             }
         }
+
+        Console.WriteLine("Anzahl der sicheren Reports:");
+        Console.WriteLine($"{safeReportCount}\r\n");
+        return true;
     }
 
     public static bool OpenDoor03(int taskNum)
