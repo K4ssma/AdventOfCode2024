@@ -7,6 +7,7 @@ using AdventOfCode2024.Day02.Task02;
 using AdventOfCode2024.Day03.Task01;
 using AdventOfCode2024.Day03.Task02;
 using AdventOfCode2024.Day04.Task01;
+using AdventOfCode2024.Day04.Task02;
 using Day01InputReader = AdventOfCode2024.Day01.InputReader;
 using Day02InputReader = AdventOfCode2024.Day02.InputReader;
 
@@ -251,6 +252,12 @@ public static class Program
             case 1:
             {
                 count = WordSearcher.GetXmasCount(inputFileString);
+                break;
+            }
+
+            case 2:
+            {
+                count = XmasFinder.GetXMasCount(inputFileString);
                 break;
             }
 
