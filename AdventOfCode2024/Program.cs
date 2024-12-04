@@ -16,42 +16,32 @@ public static class Program
     {
         while (true)
         {
-            int? inputNum = GetInput("Bitte gebe die Zahl des Türchens ein, dass du ausführen möchtest");
+            int? doorNum = GetInput("Bitte gebe die Zahl des Türchens ein, dass du ausführen möchtest");
 
-            if (!inputNum.HasValue)
+            if (!doorNum.HasValue)
             {
                 return;
             }
 
-            switch (inputNum.Value)
+            Func<int, bool> doorOpener;
+
+            switch (doorNum.Value)
             {
                 case 1:
                 {
-                    if (!OpenDoor01())
-                    {
-                        return;
-                    }
-
+                    doorOpener = OpenDoor01;
                     break;
                 }
 
                 case 2:
                 {
-                    if (!OpenDoor02())
-                    {
-                        return;
-                    }
-
+                    doorOpener = OpenDoor02;
                     break;
                 }
 
                 case 3:
                 {
-                    if (!OpenDoor03())
-                    {
-                        return;
-                    }
-
+                    doorOpener = OpenDoor03;
                     break;
                 }
 
@@ -61,8 +51,20 @@ public static class Program
 
                     Console.WriteLine("Dieses Türchen existiert (noch) nicht");
                     Console.WriteLine("Bitte versuche ein anderes\r\n");
-                    break;
+                    continue;
                 }
+            }
+
+            int? taskNum = GetInput("Bitte gebe die Zahl der Aufgabe ein, die du ausführen möchtest");
+
+            if (!taskNum.HasValue)
+            {
+                return;
+            }
+
+            if (!doorOpener(taskNum.Value))
+            {
+                return;
             }
         }
     }
@@ -94,174 +96,144 @@ public static class Program
         }
     }
 
-    public static bool OpenDoor01()
+    public static bool OpenDoor01(int taskNum)
     {
-        while (true)
+        switch (taskNum)
         {
-            int? inputNum = GetInput("Gebe die Zahl, der Aufgabe ein, die du ausführen möchtest");
-
-            if (!inputNum.HasValue)
+            case 1:
             {
-                return false;
+                string inputFileString = File.ReadAllText(@"..\net9.0\Day01\Input.txt");
+
+                if (inputFileString.Trim() == string.Empty)
+                {
+                    Console.WriteLine("Input File is empty");
+                    return false;
+                }
+
+                (int, int)[] numbers = Day01InputReader.ReadInputString(inputFileString).ToArray();
+                int distance = DistanceCalculator.CalculateOverallDistance(numbers);
+
+                Console.WriteLine("Die Gesamtdistanz beträgt:");
+                Console.WriteLine($"{distance}\n\r");
+                return true;
             }
 
-            switch (inputNum.Value)
+            case 2:
             {
-                case 1:
+                string inputFileString = File.ReadAllText(@"..\net9.0\Day01\Input.txt");
+
+                if (inputFileString.Trim() == string.Empty)
                 {
-                    string inputFileString = File.ReadAllText(@"..\net9.0\Day01\Input.txt");
-
-                    if (inputFileString.Trim() == string.Empty)
-                    {
-                        Console.WriteLine("Input File is empty");
-                        return false;
-                    }
-
-                    (int, int)[] numbers = Day01InputReader.ReadInputString(inputFileString).ToArray();
-                    int distance = DistanceCalculator.CalculateOverallDistance(numbers);
-
-                    Console.WriteLine("Die Gesamtdistanz beträgt:");
-                    Console.WriteLine($"{distance}\n\r");
-                    return true;
+                    Console.WriteLine("Input File is empty");
+                    return false;
                 }
 
-                case 2:
-                {
-                    string inputFileString = File.ReadAllText(@"..\net9.0\Day01\Input.txt");
+                (int, int)[] numbers = Day01InputReader.ReadInputString(inputFileString).ToArray();
+                int similarity = SimilarityCalculator.CalculateSimilarityScore(numbers);
 
-                    if (inputFileString.Trim() == string.Empty)
-                    {
-                        Console.WriteLine("Input File is empty");
-                        return false;
-                    }
+                Console.WriteLine("Die Gesamt-Ähnlichkeit beträgt:");
+                Console.WriteLine($"{similarity}\n\r");
+                return true;
+            }
 
-                    (int, int)[] numbers = Day01InputReader.ReadInputString(inputFileString).ToArray();
-                    int similarity = SimilarityCalculator.CalculateSimilarityScore(numbers);
+            default:
+            {
+                Console.Clear();
 
-                    Console.WriteLine("Die Gesamt-Ähnlichkeit beträgt:");
-                    Console.WriteLine($"{similarity}\n\r");
-                    return true;
-                }
-
-                default:
-                {
-                    Console.Clear();
-
-                    Console.WriteLine("Diese Aufgabe existiert (noch) nicht");
-                    Console.WriteLine("Bitte versuche eine andere\r\n");
-                    break;
-                }
+                Console.WriteLine("Diese Aufgabe existiert (noch) nicht");
+                Console.WriteLine("Bitte versuche eine andere\r\n");
+                return true;
             }
         }
     }
 
-    public static bool OpenDoor02()
+    public static bool OpenDoor02(int taskNum)
     {
-        while (true)
+        switch (taskNum)
         {
-            int? inputNum = GetInput("Gebe die Zahl, der Aufgabe ein, die du ausführen möchtest");
-
-            if (!inputNum.HasValue)
+            case 1:
             {
-                return false;
+                string inputFileString = File.ReadAllText(@"..\net9.0\Day02\Input.txt");
+
+                if (inputFileString.Trim() == string.Empty)
+                {
+                    Console.WriteLine("Input File is empty");
+                    return false;
+                }
+
+                int[][] reports = Day02InputReader
+                    .ReadInputString(inputFileString)
+                    .Select(report => report.ToArray())
+                    .ToArray();
+
+                int safeReportCount = ReportAnalyzer.GetNumOfSafeReports(reports);
+
+                Console.WriteLine("Anzahl der sicheren Reports:");
+                Console.WriteLine($"{safeReportCount}\r\n");
+                return true;
             }
 
-            switch (inputNum.Value)
+            case 2:
             {
-                case 1:
+                string inputFileString = File.ReadAllText(@"..\net9.0\Day02\Input.txt");
+
+                if (inputFileString.Trim() == string.Empty)
                 {
-                    string inputFileString = File.ReadAllText(@"..\net9.0\Day02\Input.txt");
-
-                    if (inputFileString.Trim() == string.Empty)
-                    {
-                        Console.WriteLine("Input File is empty");
-                        return false;
-                    }
-
-                    int[][] reports = Day02InputReader
-                        .ReadInputString(inputFileString)
-                        .Select(report => report.ToArray())
-                        .ToArray();
-
-                    int safeReportCount = ReportAnalyzer.GetNumOfSafeReports(reports);
-
-                    Console.WriteLine("Anzahl der sicheren Reports:");
-                    Console.WriteLine($"{safeReportCount}\r\n");
-                    return true;
+                    Console.WriteLine("Input File is empty");
+                    return false;
                 }
 
-                case 2:
-                {
-                    string inputFileString = File.ReadAllText(@"..\net9.0\Day02\Input.txt");
+                int[][] reports = Day02InputReader
+                    .ReadInputString(inputFileString)
+                    .Select(report => report.ToArray())
+                    .ToArray();
 
-                    if (inputFileString.Trim() == string.Empty)
-                    {
-                        Console.WriteLine("Input File is empty");
-                        return false;
-                    }
+                int safeReportCount = ProblemDampener.GetNumOfSafeReports(reports);
 
-                    int[][] reports = Day02InputReader
-                        .ReadInputString(inputFileString)
-                        .Select(report => report.ToArray())
-                        .ToArray();
+                Console.WriteLine("Anzahl der sicheren Reports:");
+                Console.WriteLine($"{safeReportCount}\r\n");
+                return true;
+            }
 
-                    int safeReportCount = ProblemDampener.GetNumOfSafeReports(reports);
+            default:
+            {
+                Console.Clear();
 
-                    Console.WriteLine("Anzahl der sicheren Reports:");
-                    Console.WriteLine($"{safeReportCount}\r\n");
-                    return true;
-                }
-
-                default:
-                {
-                    Console.Clear();
-
-                    Console.WriteLine("Diese Aufgabe existiert (noch) nicht");
-                    Console.WriteLine("Bitte versuche eine andere\r\n");
-                    break;
-                }
+                Console.WriteLine("Diese Aufgabe existiert (noch) nicht");
+                Console.WriteLine("Bitte versuche eine andere\r\n");
+                return true;
             }
         }
     }
 
-    public static bool OpenDoor03()
+    public static bool OpenDoor03(int taskNum)
     {
-        while (true)
+        switch (taskNum)
         {
-            int? inputNum = GetInput("Gebe die Zahl, der Aufgabe ein, die du ausführen möchtest");
-
-            if (!inputNum.HasValue)
+            case 1:
             {
-                return false;
+                string inputFileString = File.ReadAllText(@"..\net9.0\Day03\Input.txt");
+
+                if (inputFileString.Trim() == string.Empty)
+                {
+                    Console.WriteLine("Input File is empty");
+                    return false;
+                }
+
+                int result = InstructionScanner.GetInstructionResult(inputFileString);
+
+                Console.WriteLine("Ergebniss der Computer-Anweisung");
+                Console.WriteLine($"{result}\r\n");
+                return true;
             }
 
-            switch (inputNum.Value)
+            default:
             {
-                case 1:
-                {
-                    string inputFileString = File.ReadAllText(@"..\net9.0\Day03\Input.txt");
+                Console.Clear();
 
-                    if (inputFileString.Trim() == string.Empty)
-                    {
-                        Console.WriteLine("Input File is empty");
-                        return false;
-                    }
-
-                    int result = InstructionScanner.GetInstructionResult(inputFileString);
-
-                    Console.WriteLine("Ergebniss der Computer-Anweisung");
-                    Console.WriteLine($"{result}\r\n");
-                    return true;
-                }
-
-                default:
-                {
-                    Console.Clear();
-
-                    Console.WriteLine("Diese Aufgabe existiert (noch) nicht");
-                    Console.WriteLine("Bitte versuche eine andere\r\n");
-                    break;
-                }
+                Console.WriteLine("Diese Aufgabe existiert (noch) nicht");
+                Console.WriteLine("Bitte versuche eine andere\r\n");
+                return true;
             }
         }
     }
