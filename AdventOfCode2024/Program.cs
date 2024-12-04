@@ -5,6 +5,7 @@ using AdventOfCode2024.Day01.Task02;
 using AdventOfCode2024.Day02.Task01;
 using AdventOfCode2024.Day02.Task02;
 using AdventOfCode2024.Day03.Task01;
+using AdventOfCode2024.Day03.Task02;
 using Day01InputReader = AdventOfCode2024.Day01.InputReader;
 using Day02InputReader = AdventOfCode2024.Day02.InputReader;
 
@@ -98,15 +99,15 @@ public static class Program
 
     public static bool OpenDoor01(int taskNum)
     {
-                string inputFileString = File.ReadAllText(@"..\net9.0\Day01\Input.txt");
+        string inputFileString = File.ReadAllText(@"..\net9.0\Day01\Input.txt");
 
-                if (inputFileString.Trim() == string.Empty)
-                {
-                    Console.WriteLine("Input File is empty");
-                    return false;
-                }
+        if (inputFileString.Trim() == string.Empty)
+        {
+            Console.WriteLine("Input File is empty");
+            return false;
+        }
 
-                (int, int)[] numbers = Day01InputReader.ReadInputString(inputFileString).ToArray();
+        (int, int)[] numbers = Day01InputReader.ReadInputString(inputFileString).ToArray();
 
         switch (taskNum)
         {
@@ -141,18 +142,18 @@ public static class Program
 
     public static bool OpenDoor02(int taskNum)
     {
-                string inputFileString = File.ReadAllText(@"..\net9.0\Day02\Input.txt");
+        string inputFileString = File.ReadAllText(@"..\net9.0\Day02\Input.txt");
 
-                if (inputFileString.Trim() == string.Empty)
-                {
-                    Console.WriteLine("Input File is empty");
-                    return false;
-                }
+        if (inputFileString.Trim() == string.Empty)
+        {
+            Console.WriteLine("Input File is empty");
+            return false;
+        }
 
-                int[][] reports = Day02InputReader
-                    .ReadInputString(inputFileString)
-                    .Select(report => report.ToArray())
-                    .ToArray();
+        int[][] reports = Day02InputReader
+            .ReadInputString(inputFileString)
+            .Select(report => report.ToArray())
+            .ToArray();
 
         int safeReportCount;
 
@@ -168,7 +169,7 @@ public static class Program
             {
                 safeReportCount = ProblemDampener.GetNumOfSafeReports(reports);
                 break;
-                }
+            }
 
             default:
             {
@@ -187,23 +188,28 @@ public static class Program
 
     public static bool OpenDoor03(int taskNum)
     {
+        string inputFileString = File.ReadAllText(@"..\net9.0\Day03\Input.txt");
+
+        if (inputFileString.Trim() == string.Empty)
+        {
+            Console.WriteLine("Input File is empty");
+            return false;
+        }
+
+        int result;
+
         switch (taskNum)
         {
             case 1:
             {
-                string inputFileString = File.ReadAllText(@"..\net9.0\Day03\Input.txt");
+                result = InstructionScanner.GetInstructionResult(inputFileString);
+                break;
+            }
 
-                if (inputFileString.Trim() == string.Empty)
-                {
-                    Console.WriteLine("Input File is empty");
-                    return false;
-                }
-
-                int result = InstructionScanner.GetInstructionResult(inputFileString);
-
-                Console.WriteLine("Ergebniss der Computer-Anweisung");
-                Console.WriteLine($"{result}\r\n");
-                return true;
+            case 2:
+            {
+                result = ConditionalInstructionScanner.GetInstructionResult(inputFileString);
+                break;
             }
 
             default:
@@ -215,5 +221,9 @@ public static class Program
                 return true;
             }
         }
+
+        Console.WriteLine("Ergebniss der Computer-Anweisung");
+        Console.WriteLine($"{result}\r\n");
+        return true;
     }
 }
