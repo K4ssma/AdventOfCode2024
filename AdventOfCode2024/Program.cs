@@ -9,6 +9,7 @@ using AdventOfCode2024.Day03.Task02;
 using AdventOfCode2024.Day04.Task01;
 using AdventOfCode2024.Day04.Task02;
 using AdventOfCode2024.Day05.Task01;
+using AdventOfCode2024.Day05.Task02;
 using Day01InputReader = AdventOfCode2024.Day01.InputReader;
 using Day02InputReader = AdventOfCode2024.Day02.InputReader;
 
@@ -300,6 +301,12 @@ public static class Program
             case 1:
             {
                 sum = PrintValidator.GetValidMiddleSum(inputFileString);
+                break;
+            }
+
+            case 2:
+            {
+                sum = PrintCorrector.GetCorrectedMiddleSum(inputFileString);
                 break;
             }
 
