@@ -55,8 +55,4 @@
 	  </None>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Day06\" />
-	</ItemGroup>
-
 </Project>
