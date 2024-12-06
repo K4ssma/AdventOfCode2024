@@ -1,6 +1,7 @@
 ﻿namespace TestAdventOfCode2024.Day06.Task01;
 
 using System.Collections.Generic;
+using AdventOfCode2024.Day06.HelperClasses;
 
 public static class TestCases
 {
