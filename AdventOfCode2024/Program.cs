@@ -10,6 +10,8 @@ using AdventOfCode2024.Day04.Task01;
 using AdventOfCode2024.Day04.Task02;
 using AdventOfCode2024.Day05.Task01;
 using AdventOfCode2024.Day05.Task02;
+using AdventOfCode2024.Day06.HelperClasses;
+using AdventOfCode2024.Day06.Task01;
 using Day01InputReader = AdventOfCode2024.Day01.InputReader;
 using Day02InputReader = AdventOfCode2024.Day02.InputReader;
 
@@ -59,6 +61,12 @@ public static class Program
                 case 5:
                 {
                     doorOpener = OpenDoor05;
+                    break;
+                }
+
+                case 6:
+                {
+                    doorOpener = OpenDoor06;
                     break;
                 }
 
@@ -322,6 +330,43 @@ public static class Program
 
         Console.WriteLine("Summe der validen Druck abfolgen:");
         Console.WriteLine($"{sum}\r\n");
+        return true;
+    }
+
+    public static bool OpenDoor06(int taskNum)
+    {
+        string inputFileString = File.ReadAllText(@"..\net9.0\Day06\Input.txt");
+
+        if (inputFileString.Trim() == string.Empty)
+        {
+            Console.WriteLine("Input File is empty");
+            return false;
+        }
+
+        (bool?[,] Map, GuardState GuardState) map = MapReader.ReadMapString(inputFileString);
+
+        int num;
+
+        switch (taskNum)
+        {
+            case 1:
+            {
+                num = GuardPredictor.PredictGuardLocations(map.Map, map.GuardState);
+                break;
+            }
+
+            default:
+            {
+                Console.Clear();
+
+                Console.WriteLine("Diese Aufgabe existiert (noch) nicht");
+                Console.WriteLine("Bitte versuche eine andere\r\n");
+                return true;
+            }
+        }
+
+        Console.WriteLine("Anzahl der Positionen der Wache:");
+        Console.WriteLine($"{num}\r\n");
         return true;
     }
 }
