@@ -110,7 +110,7 @@ internal sealed class FlagableMap
         }
 
         this.savedTiles.Add(this.guardState.Pos);
-        tile.MarkTile(this.guardState.Pos);
+        tile.MarkTile(this.guardState.Dir);
         return true;
     }
 
