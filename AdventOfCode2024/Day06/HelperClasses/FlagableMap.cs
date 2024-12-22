@@ -8,6 +8,9 @@ internal sealed class FlagableMap
 
     private GuardState guardState;
 
+    private GuardState savedGuardState;
+    private List<Vector2Int> savedTiles;
+
     public FlagableMap(string mapString)
     {
         string[] rowStrings = mapString.Split("\r\n");
@@ -61,6 +64,9 @@ internal sealed class FlagableMap
         {
             throw new FormatException("unable find guard position");
         }
+
+        this.savedGuardState = this.guardState;
+        this.savedTiles = [];
     }
 
     /// <summary>
@@ -111,7 +117,16 @@ internal sealed class FlagableMap
     /// </returns>
     public bool MarkCurrPosIfEmpty()
     {
-        return this.map[this.guardState.Pos.Y, this.guardState.Pos.X]!.MarkTile(this.guardState.Dir);
+        MapTile tile = this.map[this.guardState.Pos.Y, this.guardState.Pos.X]!;
+
+        if (tile.GuardDir != null)
+        {
+            return false;
+        }
+
+        this.savedTiles.Add(this.guardState.Pos);
+        tile.MarkTile(this.guardState.Pos);
+        return true;
     }
 
     /// <summary>
@@ -124,6 +139,30 @@ internal sealed class FlagableMap
         return currTile.GuardDir != null
             && currTile.GuardDir.Value.X == this.guardState.Dir.X
             && currTile.GuardDir.Value.Y == this.guardState.Dir.Y;
+    }
+
+    /// <summary>
+    /// <para>saves the current map and guard state</para>
+    /// <para>if there is an already saved state, it gets overridden</para>
+    /// </summary>
+    public void SaveState()
+    {
+        this.savedGuardState = this.guardState;
+        this.savedTiles = [];
+    }
+
+    /// <summary>
+    /// <para>restores the last saved map and guard state</para>
+    /// <para>if there was no state saved everything gets reset to their initial value</para>
+    /// </summary>
+    public void LoadSavedState()
+    {
+        this.guardState = this.savedGuardState;
+
+        foreach (Vector2Int pos in this.savedTiles)
+        {
+            this.map[pos.Y, pos.X] = new();
+        }
     }
 
     private sealed class MapTile
