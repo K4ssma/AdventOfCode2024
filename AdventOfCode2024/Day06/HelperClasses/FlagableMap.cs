@@ -4,9 +4,9 @@ using System;
 
 internal sealed class FlagableMap
 {
-    private readonly bool?[,] map;
-    private Vector2Int guardPos;
-    private Vector2Int guardDir;
+    private readonly MapTile?[,] map;
+
+    private GuardState guardState;
 
     public FlagableMap(string mapString)
     {
@@ -15,7 +15,7 @@ internal sealed class FlagableMap
         int rowCount = rowStrings.Length;
         int colCount = rowStrings[0].Length;
 
-        this.map = new bool?[rowCount, colCount];
+        this.map = new MapTile?[rowCount, colCount];
         bool foundGuardPos = false;
 
         for (int y = 0; y < rowCount; y++)
@@ -31,7 +31,7 @@ internal sealed class FlagableMap
                 {
                     case '.':
                     {
-                        this.map[y, x] = false;
+                        this.map[y, x] = new();
                         continue;
                     }
 
@@ -43,9 +43,8 @@ internal sealed class FlagableMap
 
                     case '^':
                     {
-                        this.map[y, x] = false;
-                        this.guardPos = new(x, y);
-                        this.guardDir = new(0, -1);
+                        this.map[y, x] = new();
+                        this.guardState = new(new(x, y), new(0, -1));
                         foundGuardPos = true;
                         continue;
                     }
@@ -77,11 +76,11 @@ internal sealed class FlagableMap
     /// </exception>
     public bool MoveNext()
     {
-        Vector2Int nextDir = this.guardDir;
+        Vector2Int nextDir = this.guardState.Dir;
 
         for (int i = 0; i < 3; i++)
         {
-            Vector2Int nextPos = new(this.guardPos.X + nextDir.X, this.guardPos.Y + nextDir.Y);
+            Vector2Int nextPos = new(this.guardState.Pos.X + nextDir.X, this.guardState.Pos.Y + nextDir.Y);
 
             if (nextPos.X < 0
                 || nextPos.X >= this.map.GetLength(1)
@@ -93,8 +92,7 @@ internal sealed class FlagableMap
 
             if (this.map[nextPos.Y, nextPos.X] != null)
             {
-                this.guardPos = nextPos;
-                this.guardDir = nextDir;
+                this.guardState = new(nextPos, nextDir);
                 return true;
             }
 
@@ -109,16 +107,48 @@ internal sealed class FlagableMap
     /// </summary>
     /// <returns>
     /// <para><c>true</c> when a new mark got placed</para>
-    /// <para><c>false</c> when there was already a mark and therefore no mark was placed</para>
+    /// <para><c>false</c> when there was already a mark and therefore nothing happened</para>
     /// </returns>
     public bool MarkCurrPosIfEmpty()
     {
-        if (this.map[this.guardPos.Y, this.guardPos.X] == true)
-        {
-            return false;
-        }
+        return this.map[this.guardState.Pos.Y, this.guardState.Pos.X]!.MarkTile(this.guardState.Dir);
+    }
 
-        this.map[this.guardPos.Y, this.guardPos.X] = true;
-        return true;
+    /// <summary>
+    /// checks wether the guard is in a loop or not
+    /// </summary>
+    public bool IsOnLoop()
+    {
+        MapTile currTile = this.map[this.guardState.Pos.Y, this.guardState.Pos.X]!;
+
+        return currTile.GuardDir != null
+            && currTile.GuardDir.Value.X == this.guardState.Dir.X
+            && currTile.GuardDir.Value.Y == this.guardState.Dir.Y;
+    }
+
+    private sealed class MapTile
+    {
+        public Vector2Int? GuardDir { get; private set; } = null;
+
+        /// <summary>
+        /// save the direction of the guard standing on this tile
+        /// </summary>
+        /// <param name="guardDir">
+        /// the direction that should get saved by this tile
+        /// </param>
+        /// <returns>
+        /// <para><c>true</c> the tile got marked successfully</para>
+        /// <para><c>false</c> this tile was already marked and therefore nothing happened</para>
+        /// </returns>
+        public bool MarkTile(Vector2Int guardDir)
+        {
+            if (this.GuardDir != null)
+            {
+                return false;
+            }
+
+            this.GuardDir = guardDir;
+            return true;
+        }
     }
 }
