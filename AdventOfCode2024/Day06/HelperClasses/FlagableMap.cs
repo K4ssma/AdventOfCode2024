@@ -82,30 +82,15 @@ internal sealed class FlagableMap
     /// </exception>
     public bool MoveNext()
     {
-        Vector2Int nextDir = this.guardState.Dir;
+        GuardState? nextState = this.GetNext();
 
-        for (int i = 0; i < 3; i++)
+        if (nextState == null)
         {
-            Vector2Int nextPos = new(this.guardState.Pos.X + nextDir.X, this.guardState.Pos.Y + nextDir.Y);
-
-            if (nextPos.X < 0
-                || nextPos.X >= this.map.GetLength(1)
-                || nextPos.Y < 0
-                || nextPos.Y >= this.map.GetLength(0))
-            {
-                return false;
-            }
-
-            if (this.map[nextPos.Y, nextPos.X] != null)
-            {
-                this.guardState = new(nextPos, nextDir);
-                return true;
-            }
-
-            nextDir = new(-nextDir.Y, nextDir.X);
+            return false;
         }
 
-        throw new InvalidOperationException("guard is surrounded by obstructions and therefore can't move");
+        this.guardState = nextState.Value;
+        return true;
     }
 
     /// <summary>
@@ -142,6 +127,27 @@ internal sealed class FlagableMap
     }
 
     /// <summary>
+    /// places an obstruction on the next tile the guard would move to
+    /// </summary>
+    /// <returns>
+    /// <para><c>true</c> the obstruction was placed successfully</para>
+    /// <para><c>false</c> there was no valid spot for the obstruction</para>
+    /// </returns>
+    public bool PlaceObstruction()
+    {
+        GuardState? nextState = this.GetNext();
+
+        if (nextState == null)
+        {
+            return false;
+        }
+
+        this.savedTiles.Add(nextState.Value.Pos);
+        this.map[nextState.Value.Pos.Y, nextState.Value.Pos.X] = null;
+        return true;
+    }
+
+    /// <summary>
     /// <para>saves the current map and guard state</para>
     /// <para>if there is an already saved state, it gets overridden</para>
     /// </summary>
@@ -163,6 +169,33 @@ internal sealed class FlagableMap
         {
             this.map[pos.Y, pos.X] = new();
         }
+    }
+
+    private GuardState? GetNext()
+    {
+        Vector2Int nextDir = this.guardState.Dir;
+
+        for (int i = 0; i < 3; i++)
+        {
+            Vector2Int nextPos = new(this.guardState.Pos.X + nextDir.X, this.guardState.Pos.Y + nextDir.Y);
+
+            if (nextPos.X < 0
+                || nextPos.X >= this.map.GetLength(1)
+                || nextPos.Y < 0
+                || nextPos.Y >= this.map.GetLength(0))
+            {
+                return null;
+            }
+
+            if (this.map[nextPos.Y, nextPos.X] != null)
+            {
+                return new(nextPos, nextDir);
+            }
+
+            nextDir = new(-nextDir.Y, nextDir.X);
+        }
+
+        throw new InvalidOperationException("guard is surrounded by obstructions and therefore can't move");
     }
 
     private sealed class MapTile
