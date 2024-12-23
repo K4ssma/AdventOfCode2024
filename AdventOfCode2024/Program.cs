@@ -11,6 +11,7 @@ using AdventOfCode2024.Day04.Task02;
 using AdventOfCode2024.Day05.Task01;
 using AdventOfCode2024.Day05.Task02;
 using AdventOfCode2024.Day06.Task01;
+using AdventOfCode2024.Day06.Task02;
 using Day01InputReader = AdventOfCode2024.Day01.InputReader;
 using Day02InputReader = AdventOfCode2024.Day02.InputReader;
 
@@ -352,6 +353,12 @@ public static class Program
                 break;
             }
 
+            case 2:
+            {
+                count = ObstructionPlacer.GetPossibleObstructionCount(inputFileString);
+                break;
+            }
+
             default:
             {
                 Console.Clear();
@@ -362,7 +369,7 @@ public static class Program
             }
         }
 
-        Console.WriteLine("Anzahl der verschiedenen Wächter-Positionen:");
+        Console.WriteLine("Anzahl:");
         Console.WriteLine($"{count}\r\n");
         return true;
     }
