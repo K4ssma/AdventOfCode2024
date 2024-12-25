@@ -1,5 +1,6 @@
 ﻿namespace TestAdventOfCode2024.Day07.Task01;
 
+using AdventOfCode2024.Day07;
 using AdventOfCode2024.Day07.Task01;
 
 [TestFixture]
@@ -14,7 +15,7 @@ public sealed class TCalibrator
         long expectedResult = long.Parse(equationString.Split(": ")[0]);
 
         // act
-        long result = Calibrator.GetCalibrationResult(equationString);
+        long result = Calibrator.GetCalibrationResult(InputReader.ReadInputString(equationString));
 
         // assert
         Assert.That(result, Is.EqualTo(expectedResult));
@@ -29,7 +30,7 @@ public sealed class TCalibrator
     public void GetCalibrationResult_InvalidEquations_ShouldReturnZero(string equationString)
     {
         // act
-        long result = Calibrator.GetCalibrationResult(equationString);
+        long result = Calibrator.GetCalibrationResult(InputReader.ReadInputString(equationString));
 
         // assert
         Assert.That(result, Is.EqualTo(0));

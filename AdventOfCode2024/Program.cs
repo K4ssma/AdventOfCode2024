@@ -15,6 +15,7 @@ using AdventOfCode2024.Day06.Task02;
 using AdventOfCode2024.Day07.Task01;
 using Day01InputReader = AdventOfCode2024.Day01.InputReader;
 using Day02InputReader = AdventOfCode2024.Day02.InputReader;
+using Day07InputReader = AdventOfCode2024.Day07.InputReader;
 
 public static class Program
 {
@@ -391,13 +392,14 @@ public static class Program
             return false;
         }
 
+        IEnumerable<(long, IEnumerable<int>)> equations = Day07InputReader.ReadInputString(inputFileString);
         long calibrationResult;
 
         switch (taskNum)
         {
             case 1:
             {
-                calibrationResult = Calibrator.GetCalibrationResult(inputFileString);
+                calibrationResult = Calibrator.GetCalibrationResult(equations);
                 break;
             }
 
