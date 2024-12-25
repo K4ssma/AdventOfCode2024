@@ -13,6 +13,7 @@ using AdventOfCode2024.Day05.Task02;
 using AdventOfCode2024.Day06.Task01;
 using AdventOfCode2024.Day06.Task02;
 using AdventOfCode2024.Day07.Task01;
+using AdventOfCode2024.Day07.Task02;
 using Day01InputReader = AdventOfCode2024.Day01.InputReader;
 using Day02InputReader = AdventOfCode2024.Day02.InputReader;
 using Day07InputReader = AdventOfCode2024.Day07.InputReader;
@@ -400,6 +401,12 @@ public static class Program
             case 1:
             {
                 calibrationResult = Calibrator.GetCalibrationResult(equations);
+                break;
+            }
+
+            case 2:
+            {
+                calibrationResult = ImprovedCalibrator.GetCalibrationResult(equations);
                 break;
             }
 
