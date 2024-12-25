@@ -12,6 +12,7 @@ using AdventOfCode2024.Day05.Task01;
 using AdventOfCode2024.Day05.Task02;
 using AdventOfCode2024.Day06.Task01;
 using AdventOfCode2024.Day06.Task02;
+using AdventOfCode2024.Day07.Task01;
 using Day01InputReader = AdventOfCode2024.Day01.InputReader;
 using Day02InputReader = AdventOfCode2024.Day02.InputReader;
 
@@ -67,6 +68,12 @@ public static class Program
                 case 6:
                 {
                     doorOpener = OpenDoor06;
+                    break;
+                }
+
+                case 7:
+                {
+                    doorOpener = OpenDoor07;
                     break;
                 }
 
@@ -371,6 +378,41 @@ public static class Program
 
         Console.WriteLine("Anzahl:");
         Console.WriteLine($"{count}\r\n");
+        return true;
+    }
+
+    public static bool OpenDoor07(int taskNum)
+    {
+        string inputFileString = File.ReadAllText(@"..\net9.0\Day07\Input.txt");
+
+        if (inputFileString.Trim() == string.Empty)
+        {
+            Console.WriteLine("Input File is empty");
+            return false;
+        }
+
+        long calibrationResult;
+
+        switch (taskNum)
+        {
+            case 1:
+            {
+                calibrationResult = Calibrator.GetCalibrationResult(inputFileString);
+                break;
+            }
+
+            default:
+            {
+                Console.Clear();
+
+                Console.WriteLine("Diese Aufgabe existiert (noch) nicht");
+                Console.WriteLine("Bitte versuche eine andere\r\n");
+                return true;
+            }
+        }
+
+        Console.WriteLine("Kalibrierungs-Ergebniss:");
+        Console.WriteLine($"{calibrationResult}\r\n");
         return true;
     }
 }
