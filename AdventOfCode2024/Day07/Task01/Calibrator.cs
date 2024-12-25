@@ -4,15 +4,15 @@ using System.Linq;
 
 public static class Calibrator
 {
-    public static int GetCalibrationResult(string inputString)
+    public static long GetCalibrationResult(string inputString)
     {
-        (int Result, int[] Values)[] equations = inputString
+        (long Result, int[] Values)[] equations = inputString
             .Split("\r\n")
             .Select(equationString =>
             {
                 string[] splitEquationString = equationString.Split(": ");
 
-                int result = int.Parse(splitEquationString[0]);
+                long result = long.Parse(splitEquationString[0]);
                 int[] values = splitEquationString[1]
                     .Split(' ')
                     .Select(valueString => int.Parse(valueString))
@@ -22,7 +22,7 @@ public static class Calibrator
             })
             .ToArray();
 
-        IEnumerable<int> validEquationsResult = equations
+        IEnumerable<long> validEquationsResult = equations
             .Where(equation =>
             {
                 int flags = 0;
@@ -30,7 +30,7 @@ public static class Calibrator
                 int? firstUnsetFlagPos;
                 while (true)
                 {
-                    int currResult = equation.Values[0];
+                    long currResult = equation.Values[0];
                     firstUnsetFlagPos = null;
 
                     for (int i = 0; i < equation.Values.Length - 1; i++)

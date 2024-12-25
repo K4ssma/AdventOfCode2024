@@ -11,10 +11,10 @@ public sealed class TCalibrator
     public void GetCalibrationResult_ValidEquations_ShouldReturnEquationResult(string equationString)
     {
         // arrange
-        int expectedResult = int.Parse(equationString.Split(": ")[0]);
+        long expectedResult = long.Parse(equationString.Split(": ")[0]);
 
         // act
-        int result = Calibrator.GetCalibrationResult(equationString);
+        long result = Calibrator.GetCalibrationResult(equationString);
 
         // assert
         Assert.That(result, Is.EqualTo(expectedResult));
@@ -29,7 +29,7 @@ public sealed class TCalibrator
     public void GetCalibrationResult_InvalidEquations_ShouldReturnZero(string equationString)
     {
         // act
-        int result = Calibrator.GetCalibrationResult(equationString);
+        long result = Calibrator.GetCalibrationResult(equationString);
 
         // assert
         Assert.That(result, Is.EqualTo(0));
