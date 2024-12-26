@@ -14,6 +14,7 @@ using AdventOfCode2024.Day06.Task01;
 using AdventOfCode2024.Day06.Task02;
 using AdventOfCode2024.Day07.Task01;
 using AdventOfCode2024.Day07.Task02;
+using AdventOfCode2024.Day08.Task01;
 using Day01InputReader = AdventOfCode2024.Day01.InputReader;
 using Day02InputReader = AdventOfCode2024.Day02.InputReader;
 using Day07InputReader = AdventOfCode2024.Day07.InputReader;
@@ -76,6 +77,12 @@ public static class Program
                 case 7:
                 {
                     doorOpener = OpenDoor07;
+                    break;
+                }
+
+                case 8:
+                {
+                    doorOpener = OpenDoor08;
                     break;
                 }
 
@@ -422,6 +429,41 @@ public static class Program
 
         Console.WriteLine("Kalibrierungs-Ergebniss:");
         Console.WriteLine($"{calibrationResult}\r\n");
+        return true;
+    }
+
+    public static bool OpenDoor08(int taskNum)
+    {
+        string inputFileString = File.ReadAllText(@"..\net9.0\Day08\Input.txt");
+
+        if (inputFileString.Trim() == string.Empty)
+        {
+            Console.WriteLine("Input File is empty");
+            return false;
+        }
+
+        int nodeCount;
+
+        switch (taskNum)
+        {
+            case 1:
+            {
+                nodeCount = AntinodeDetector.CountUniqueAntinodeSpots(inputFileString);
+                break;
+            }
+
+            default:
+            {
+                Console.Clear();
+
+                Console.WriteLine("Diese Aufgabe existiert (noch) nicht");
+                Console.WriteLine("Bitte versuche eine andere\r\n");
+                return true;
+            }
+        }
+
+        Console.WriteLine("Antinode Anzahl:");
+        Console.WriteLine($"{nodeCount}\r\n");
         return true;
     }
 }
