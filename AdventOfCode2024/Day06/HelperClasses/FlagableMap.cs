@@ -1,6 +1,7 @@
 ﻿namespace AdventOfCode2024.Day06.HelperClasses;
 
 using System;
+using AdventOfCode2024.HelperClasses;
 
 internal sealed class FlagableMap
 {

@@ -1,6 +1,7 @@
 ﻿namespace AdventOfCode2024.Day08.Task01;
 
 using System.Collections.Generic;
+using AdventOfCode2024.HelperClasses;
 
 public static class AntinodeDetector
 {
@@ -60,11 +61,5 @@ public static class AntinodeDetector
         }
 
         return antinodes.Count;
-    }
-
-    private struct Vector2Int(int x, int y)
-    {
-        public int X = x;
-        public int Y = y;
     }
 }

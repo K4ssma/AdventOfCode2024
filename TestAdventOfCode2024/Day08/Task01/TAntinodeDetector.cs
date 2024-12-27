@@ -1,6 +1,8 @@
 ﻿namespace TestAdventOfCode2024.Day08.Task01;
 
+using AdventOfCode2024.Day08;
 using AdventOfCode2024.Day08.Task01;
+using AdventOfCode2024.HelperClasses;
 
 [TestFixture]
 public sealed class TAntinodeDetector
@@ -24,7 +26,9 @@ public sealed class TAntinodeDetector
             "............";
 
         // act
-        int antinodeCount = AntinodeDetector.CountUniqueAntinodeSpots(inputString);
+        (Vector2Int, Dictionary<char, List<Vector2Int>>) readInput = InputReader.ReadInputString(inputString);
+        int antinodeCount = AntinodeDetector.CountUniqueAntinodeSpots(
+            readInput.Item1, readInput.Item2);
 
         // assert
         Assert.That(antinodeCount, Is.EqualTo(14));
