@@ -5,29 +5,9 @@ using AdventOfCode2024.HelperClasses;
 
 public static class AntinodeDetector
 {
-    public static int CountUniqueAntinodeSpots(string inputString)
+    public static int CountUniqueAntinodeSpots(
+        Vector2Int dimensions, Dictionary<char, List<Vector2Int>> antennaSets)
     {
-        Dictionary<char, List<Vector2Int>> antennaSets = [];
-        string[] rowStrings = inputString.Split("\r\n");
-
-        for (int y = 0; y < rowStrings.Length; y++)
-        {
-            for (int x = 0; x < rowStrings[y].Length; x++)
-            {
-                if (rowStrings[y][x] == '.')
-                {
-                    continue;
-                }
-
-                if (!antennaSets.ContainsKey(rowStrings[y][x]))
-                {
-                    antennaSets.Add(rowStrings[y][x], []);
-                }
-
-                antennaSets[rowStrings[y][x]].Add(new(x, y));
-            }
-        }
-
         HashSet<Vector2Int> antinodes = [];
 
         foreach (List<Vector2Int> antennas in antennaSets.Values)
@@ -48,9 +28,9 @@ public static class AntinodeDetector
                     };
 
                     if (nodePos.X < 0
-                        || nodePos.X >= rowStrings[0].Length
+                        || nodePos.X >= dimensions.X
                         || nodePos.Y < 0
-                        || nodePos.Y >= rowStrings.Length)
+                        || nodePos.Y >= dimensions.Y)
                     {
                         continue;
                     }

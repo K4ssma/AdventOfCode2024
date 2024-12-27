@@ -15,9 +15,11 @@ using AdventOfCode2024.Day06.Task02;
 using AdventOfCode2024.Day07.Task01;
 using AdventOfCode2024.Day07.Task02;
 using AdventOfCode2024.Day08.Task01;
+using AdventOfCode2024.HelperClasses;
 using Day01InputReader = AdventOfCode2024.Day01.InputReader;
 using Day02InputReader = AdventOfCode2024.Day02.InputReader;
 using Day07InputReader = AdventOfCode2024.Day07.InputReader;
+using Day08InputReader = AdventOfCode2024.Day08.InputReader;
 
 public static class Program
 {
@@ -442,13 +444,15 @@ public static class Program
             return false;
         }
 
+        (Vector2Int, Dictionary<char, List<Vector2Int>>) antennaSets = Day08InputReader
+            .ReadInputString(inputFileString);
         int nodeCount;
 
         switch (taskNum)
         {
             case 1:
             {
-                nodeCount = AntinodeDetector.CountUniqueAntinodeSpots(inputFileString);
+                nodeCount = AntinodeDetector.CountUniqueAntinodeSpots(antennaSets.Item1, antennaSets.Item2);
                 break;
             }
 
