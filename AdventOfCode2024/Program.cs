@@ -15,6 +15,7 @@ using AdventOfCode2024.Day06.Task02;
 using AdventOfCode2024.Day07.Task01;
 using AdventOfCode2024.Day07.Task02;
 using AdventOfCode2024.Day08.Task01;
+using AdventOfCode2024.Day08.Task02;
 using AdventOfCode2024.HelperClasses;
 using Day01InputReader = AdventOfCode2024.Day01.InputReader;
 using Day02InputReader = AdventOfCode2024.Day02.InputReader;
@@ -453,6 +454,12 @@ public static class Program
             case 1:
             {
                 nodeCount = AntinodeDetector.CountUniqueAntinodeSpots(antennaSets.Item1, antennaSets.Item2);
+                break;
+            }
+
+            case 2:
+            {
+                nodeCount = CorrectedNodeDetector.GetNodeCount(antennaSets.Item1, antennaSets.Item2);
                 break;
             }
 
