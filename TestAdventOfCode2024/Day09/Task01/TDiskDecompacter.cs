@@ -12,7 +12,7 @@ public sealed class TDiskDecompacter
         string inputString = "2333133121414131402";
 
         // act
-        int checkSum = DiskDecompacter.GetChecksum(inputString);
+        ulong checkSum = DiskDecompacter.GetChecksum(inputString);
 
         // assert
         Assert.That(checkSum, Is.EqualTo(1928));

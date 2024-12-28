@@ -4,13 +4,13 @@ using System.Linq;
 
 public static class DiskDecompacter
 {
-    public static int GetChecksum(string inputString)
+    public static ulong GetChecksum(string inputString)
     {
         int[] diskDigits = inputString
             .Select(c => int.Parse(c.ToString()))
             .ToArray();
 
-        int checkSum = 0;
+        ulong checkSum = 0;
         int uncompressedPos = 0;
 
         int leftIndex = 0;
@@ -25,7 +25,7 @@ public static class DiskDecompacter
             {
                 while (diskDigits[leftIndex] > 0)
                 {
-                    checkSum += uncompressedPos * leftId;
+                    checkSum += (ulong)(uncompressedPos * leftId);
 
                     uncompressedPos++;
                     diskDigits[leftIndex]--;
@@ -51,7 +51,7 @@ public static class DiskDecompacter
                     break;
                 }
 
-                checkSum += uncompressedPos * rightId;
+                checkSum += (ulong)(uncompressedPos * rightId);
 
                 uncompressedPos++;
                 diskDigits[leftIndex]--;
