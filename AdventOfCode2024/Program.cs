@@ -16,6 +16,7 @@ using AdventOfCode2024.Day07.Task01;
 using AdventOfCode2024.Day07.Task02;
 using AdventOfCode2024.Day08.Task01;
 using AdventOfCode2024.Day08.Task02;
+using AdventOfCode2024.Day09.Task01;
 using AdventOfCode2024.HelperClasses;
 using Day01InputReader = AdventOfCode2024.Day01.InputReader;
 using Day02InputReader = AdventOfCode2024.Day02.InputReader;
@@ -86,6 +87,12 @@ public static class Program
                 case 8:
                 {
                     doorOpener = OpenDoor08;
+                    break;
+                }
+
+                case 9:
+                {
+                    doorOpener = OpenDoor09;
                     break;
                 }
 
@@ -475,6 +482,41 @@ public static class Program
 
         Console.WriteLine("Antinode Anzahl:");
         Console.WriteLine($"{nodeCount}\r\n");
+        return true;
+    }
+
+    public static bool OpenDoor09(int taskNum)
+    {
+        string inputFileString = File.ReadAllText(@"..\net9.0\Day09\Input.txt");
+
+        if (inputFileString.Trim() == string.Empty)
+        {
+            Console.WriteLine("Input File is empty");
+            return false;
+        }
+
+        ulong checkSum;
+
+        switch (taskNum)
+        {
+            case 1:
+            {
+                checkSum = DiskDecompacter.GetChecksum(inputFileString);
+                break;
+            }
+
+            default:
+            {
+                Console.Clear();
+
+                Console.WriteLine("Diese Aufgabe existiert (noch) nicht");
+                Console.WriteLine("Bitte versuche eine andere\r\n");
+                return true;
+            }
+        }
+
+        Console.WriteLine("Checksumme:");
+        Console.WriteLine($"{checkSum}\r\n");
         return true;
     }
 }
